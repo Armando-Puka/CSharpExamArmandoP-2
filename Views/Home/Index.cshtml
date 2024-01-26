@@ -1,0 +1,79 @@
+﻿@model Hobby
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="row mt-5 d-flex justify-content-around">
+    <h1 class="text-center mb-5">Hobbies</h1>
+    <div class="col-5">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Enthusiasts</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in ViewBag.AllHobbies) {
+                    <tr>
+                        <td><a asp-action="ViewHobbyDetails" asp-route-id="@item.HobbyId">@item.HobbyName</a></td>
+                        <td>@item.Enthusiasts.Count</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <span class="d-block mt-5">
+            <a href="CreateHobby" class="btn btn-outline-dark border border-dark border-2">Create a hobby</a>
+        </span>
+    </div>
+
+    <div class="col-5 border border-dark border-2 rounded p-4">
+        <h5>Top Novice:</h5>
+        @if (ViewBag.SortedNoviceHobbies.Count > 0)
+        {
+            <ul class="list-group">
+                @foreach (var topHobby in ViewBag.SortedNoviceHobbies)
+                {
+                    <li class="list-group">@topHobby</li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p class="text-muted">None</p>
+        }
+
+        <h5 class="mt-3">Top Intermediate:</h5>
+        @if (ViewBag.SortedIntermediateHobbies.Count > 0)
+        {
+            <ul class="list-group">
+                @foreach (var topHobby in ViewBag.SortedIntermediateHobbies)
+                {
+                    <li class="list-group">@topHobby</li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p class="text-muted">None</p>
+        }
+
+        <h5 class="mt-3">Top Expert:</h5>
+        @if (ViewBag.SortedExpertHobbies.Count > 0)
+        {
+            <ul class="list-group">
+                @foreach (var topHobby in ViewBag.SortedExpertHobbies)
+                {
+                    <li class="list-group">@topHobby</li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p class="text-muted">None</p>
+        }
+    </div>
+</div>

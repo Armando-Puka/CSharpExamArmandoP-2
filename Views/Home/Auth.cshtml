@@ -1,0 +1,15 @@
+@{
+    ViewData["Title"] = "Authentication";
+}
+
+<div class="row mt-5">
+    <h1 class="text-center">Hobby Hub!</h1>
+    
+    <div class="col-6">
+        @await Html.PartialAsync("_Registration")
+    </div>
+
+    <div class="col-6">
+        @await Html.PartialAsync("_Login")
+    </div>
+</div>

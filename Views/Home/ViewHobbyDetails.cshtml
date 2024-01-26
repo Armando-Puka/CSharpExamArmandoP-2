@@ -1,0 +1,61 @@
+@model HobbyEnthusiast
+
+<div class="row mt-5">
+    <div>
+        @if (ViewBag.ViewHobbyData != null) {
+            <h1>@ViewBag.ViewHobbyData.HobbyName</h1>
+        }
+
+        <div class="d-flex gap-1">
+            <p>Description:</p>
+            <p>@ViewBag.ViewHobbyData.HobbyDescription</p>
+        </div>
+
+        @if (ViewBag.ViewHobbyData.Creator.UserId == ViewBag.userId) {
+            <div class="d-flex justify-content-end">
+                <a asp-action="EditHobby" asp-route-id="@ViewBag.ViewHobbyData.HobbyId" class="btn btn-outline-dark border border-dark border-2">Edit Hobby</a>
+            </div>
+        }
+    </div>
+
+    <div class="mt-5 d-flex justify-content-around">
+        <div class="col-5">
+            <p>@ViewBag.ViewHobbyData.HobbyName Enthusiasts:</p>
+            
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Username</th>
+                        <th scope="col">Proficiency</th>
+                    </tr>
+                </thead>
+
+                <tbody>                        
+                    @if (ViewBag.ViewHobbyData.Enthusiasts != null) {
+                        foreach (var item in ViewBag.ViewHobbyData.Enthusiasts) {
+                            <tr>
+                                <td>@item.User.Name</td>
+                                <td>@item.Proficiency</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    <div class="col-5 mt-5">
+        <form asp-action="AddHobbyEnthusiasts" asp-route-id="@ViewBag.ViewHobbyData.HobbyId" method="post">
+            <p>Become an Enthusiast!</p>
+            <input type="hidden" name="HobbyId" value="@ViewBag.ViewHobbyData.HobbyId" />
+
+            <select name="Proficiency" class="border border-dark border-2 rounded d-flex mb-3">
+                <option value="Novice">Novice</option>
+                <option value="Intermediate">Intermediate</option>
+                <option value="Expert">Expert</option>
+            </select>
+
+            <input type="submit" class="btn btn-outline-dark border border-dark border-2" value="Add to Hobbies">
+        </form>
+    </div>
+    </div>
+</div>
